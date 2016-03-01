@@ -1,10 +1,10 @@
 //Hi! -Jonathan
 //created 2.29.16
 
-setup() {
-  fullscreen();
+void setup() {
+  fullScreen();
 }
 
-draw() {
+void draw() {
 
 }
