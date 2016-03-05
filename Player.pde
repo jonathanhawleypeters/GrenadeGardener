@@ -14,7 +14,6 @@ class Gardener {
    //the increment that turn lerping increases every frame
    float lerpInc = 0.1;
    
-   
    float turnLerp = 0;
    
    //new variables for tracking direction. Controlled by WASD (and ARROW keys?) under User_Input
@@ -27,6 +26,7 @@ class Gardener {
    }
    
    void draw() {
+     noStroke();
      pushMatrix();
      translate(x,y);
      rotate(turnRadians());
