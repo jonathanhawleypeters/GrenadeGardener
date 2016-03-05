@@ -81,7 +81,7 @@ class Gardener {
    }
    
    void grenadeAttack() {
-   
+     gm.liveGrenade = new Grenade(x,y,mouseX,mouseY);
    }
    
    

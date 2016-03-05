@@ -15,7 +15,12 @@ class Grenade {
   } 
   
   void draw() {
-    
+    stroke(0);
+    line(x, y-20, x, y-25);
+    noStroke();
+    fill(150);
+    rect(x-5,y-20,10,10);
+    ellipse(x,y,25,25);
   }
   
   void move() {
