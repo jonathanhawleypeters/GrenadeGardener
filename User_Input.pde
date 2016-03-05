@@ -26,7 +26,7 @@ void keyPressed() {
     case('a'): case('A'): player.left = true; player.targetFacing = 3*HALF_PI; return;
     case('s'): case('S'): player.down = true; player.targetFacing = PI; return;
     case('d'): case('D'): player.right = true; player.targetFacing = HALF_PI; return;
-    case('g'): case('G'): player.grenadeAttack(); return;
+    //case('g'): case('G'): player.grenadeAttack(); return;
     
   }
 }
@@ -55,4 +55,11 @@ void keyReleased() {
     case('s'): case('S'): player.down = false; return;
     case('d'): case('D'): player.right = false; return;
   }
+}
+
+void mousePressed() {
+  if(mouseButton == LEFT) {
+    player.grenadeAttack(); return;
+  }
+
 }
