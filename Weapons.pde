@@ -1,7 +1,6 @@
 class Grenade {
   int size;
-  float x, y, tX, tY;
-  float xSpeed, ySpeed;
+  float x, y, tX, tY, xSpeed, ySpeed, dist;
   int constSpeed = 5;
   boolean exploding = false;
   
@@ -11,11 +10,10 @@ class Grenade {
     y = startingY;
     tX = targetX;
     tY = targetY;
-    float dist = dist(x,y,tX,tY);
+    dist = dist(x,y,tX,tY);
     if (dist == 0) {
       //Oops!
-      explode();
-      return;
+    exploding = true;
     }
     
     float rise = tY - y;
@@ -44,8 +42,14 @@ class Grenade {
   }
   
   void move() {
+    if(dist<=0) {
+      exploding = true;
+      xSpeed = 0;
+      ySpeed = 0;
+    }
     x+=xSpeed;
     y+=ySpeed;
+    dist -= constSpeed;
 }
 
 }
