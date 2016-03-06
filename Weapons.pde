@@ -1,14 +1,28 @@
 class Grenade {
   int size;
-  int x, y, tX, tY;
+  float x, y, tX, tY;
+  float xSpeed, ySpeed;
+  int constSpeed = 5;
   boolean exploding = false;
   
-  Grenade (int startingX, int startingY, int targetX, int targetY) {
+  Grenade (float startingX, float startingY, float targetX, float targetY) {
     
     x = startingX;
     y = startingY;
     tX = targetX;
     tY = targetY;
+    float dist = dist(x,y,tX,tY);
+    if (dist == 0) {
+      //Oops!
+      explode();
+      return;
+    }
+    
+    float rise = tY - y;
+    float run = tX - x;
+    
+    xSpeed = run/dist*constSpeed;
+    ySpeed = rise/dist*constSpeed;
   }
   
   void explode () {
@@ -29,12 +43,9 @@ class Grenade {
    }
   }
   
-  void move(int deltaX, int deltaY) {
-    
-    //grenades need to move at a uniform speed from their x,y to their tX, tY
-    
-    x+=deltaX;
-    y+=deltaY;
+  void move() {
+    x+=xSpeed;
+    y+=ySpeed;
 }
 
 }

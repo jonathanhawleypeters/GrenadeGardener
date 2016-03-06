@@ -9,6 +9,8 @@ class GameManager {
   
   void manageGrenades() {
     if(gm.liveGrenade != null)
-      gm.liveGrenade.draw();
+      gm.liveGrenade.draw();      
+      gm.liveGrenade.move();
+
   }
 }
