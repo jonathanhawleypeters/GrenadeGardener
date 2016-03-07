@@ -9,6 +9,7 @@ void setup() {
   noStroke();
   player = new Gardener(width/2,height/2);
   gm = new GameManager();
+  gm.generateLevel();
   cursor(CROSS);
 }
 
@@ -17,5 +18,6 @@ void draw() {
    player.move();
    player.draw();
    gm.manageGrenades();
+   gm.manageEnemies();
    
 }

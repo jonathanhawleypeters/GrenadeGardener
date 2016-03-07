@@ -5,11 +5,14 @@
 class Enemy {
   int x;
   int y;
-  int health;
+  int health = 10;
   
-  Enemy (int tempX,int tempY, int tempHealth) {
-     x = tempX;
-     y = tempY;
-     health = tempHealth;
+  //Enemy(int tempX,int tempY, int tempHealth) {
+  //   x = tempX;
+  //   y = tempY;
+  //   health = tempHealth;
+  //}
+  void draw () {
+    
   }
 }

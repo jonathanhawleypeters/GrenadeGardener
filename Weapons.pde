@@ -2,6 +2,7 @@ class Grenade {
   int size;
   float x, y, tX, tY, xSpeed, ySpeed, dist;
   int constSpeed = 5;
+  int boomCount = 0; //counts frames after grenade explosion
   boolean exploding = false;
   
   Grenade (float startingX, float startingY, float targetX, float targetY) {
@@ -27,7 +28,9 @@ class Grenade {
   
   } 
   
-  void draw() {
+  void draw(int arrayLoc) {
+   
+    int location = arrayLoc;
     
    if(!exploding) {
     stroke(0);
@@ -37,7 +40,14 @@ class Grenade {
     rect(x-5,y-20,10,10);
     ellipse(x,y,25,25);
    } else if (exploding) {
-     //update particles from array and draw them
+      boomCount ++;
+      noStroke();
+      fill(255,200,75);
+      ellipse(x,y,boomCount*30,boomCount*30);
+
+   }
+   if (boomCount > 15) {
+       gm.liveGrenades[location] = null;
    }
   }
   
