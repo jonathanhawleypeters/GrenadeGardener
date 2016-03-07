@@ -35,25 +35,29 @@ void keyReleased() {
   
     if(keyCode == UP) {
       player.up = false; 
+      checkFacing();
       return;
       }
     if(keyCode == LEFT) {
       player.left = false; 
+      checkFacing();
       return;
       }
     if(keyCode == RIGHT) {
       player.right = false; 
+      checkFacing();
       return;
       }
     if(keyCode == DOWN) {
       player.down = false; 
+      checkFacing();
       return;
       }
     switch (key) {
-    case('w'): case('W'): player.up = false; return;
-    case('a'): case('A'): player.left = false; return;
-    case('s'): case('S'): player.down = false; return;
-    case('d'): case('D'): player.right = false; return;
+    case('w'): case('W'): player.up = false; checkFacing(); return;
+    case('a'): case('A'): player.left = false; checkFacing(); return;
+    case('s'): case('S'): player.down = false; checkFacing(); return;
+    case('d'): case('D'): player.right = false; checkFacing(); return;
   }
 }
 
@@ -61,5 +65,24 @@ void mousePressed() {
   if(mouseButton == LEFT) {
     player.grenadeAttack(); return;
   }
+
+}
+
+void checkFacing() {
+  if(player.up) {
+    player.targetFacing = 0; 
+    return;
+  }
+  if(player.left) {
+    player.targetFacing = 3*HALF_PI; 
+    return;
+  }
+   if(player.down) {
+     player.targetFacing = PI; return;
+   }
+   if(player.right) {
+     player.targetFacing = HALF_PI; return;
+   }
+    
 
 }

@@ -5,12 +5,18 @@ class GameManager {
   int numGrenades = 0;
   
   //Level generator Stuff
-  int level = 0;
+  int level = 1;
+  int levelLength;
   Enemy[] enemies;
+  Grass[] grassTufts;
+  
+  //UI 
+  int announceLevel = 300;
   
   GameManager () {
     liveGrenades = new Grenade[20];
     enemies = new Enemy[50];
+    grassTufts = new Grass[20];
   }
   
   void manageGrenades() {
@@ -36,13 +42,76 @@ class GameManager {
     }
   }
   
+  void drawGrass() {
+    for(int i = 0; i < grassTufts.length; i ++) {
+      grassTufts[i].draw();
+    }
+  }
+  
+  void scrollRight() {
+    int mvSpd = player.moveSpeed;
+    for(int i = 0; i < enemies.length; i++) {
+      enemies[i].x -= mvSpd;
+      
+    }
+    for(int j = 0; j < liveGrenades.length; j++) {
+      if(liveGrenades[j] != null) {
+         liveGrenades[j].x -= player.moveSpeed;
+      }
+    }
+    for(int k = 0; k < grassTufts.length; k ++) {
+      grassTufts[k].x-=mvSpd;
+      if(grassTufts[k].x < -200) {
+        grassTufts[k].x += width+200;
+      }
+    }
+    
+    levelLength -= mvSpd;
+    if(levelLength < 0) {
+      level++;
+      randomSeed(level);
+      generateLevel();
+      resetLevel();
+    }
+  }
+  
   void generateLevel () {
     
     float xLoc = 0;
     randomSeed(level);
     for(int i = 0; i < enemies.length; i++) {
-      xLoc += random(50,500);
+      xLoc += random(0,500);
       enemies[i] = new Tree(int(xLoc), int(random(height)), color(0,255,0));
+      
+      if(i == enemies.length-1) {
+        levelLength = int(xLoc);
+      }
+      
     }
+  }
+  
+  void generateGrass() {
+    for(int i = 0; i < grassTufts.length; i ++) {
+       grassTufts[i] = new Grass(int(random(width)), int(random(height)));
+    }
+  }
+  
+  void resetLevel() {
+    player.x = width/2;
+    player.y = height/2;
+    announceLevel = 180;
+  }
+  
+  //writes valuable info on screen
+  void ui() {
+    if(announceLevel > 0) {
+    noStroke();
+    fill(0);
+    rect(width/2 - 40, height/2 - 20, 80, 40);
+    fill(255);
+    text("Level " + level, width/2 - 20, height/2);
+    announceLevel--;
+    }
+  
   }
 }

@@ -34,6 +34,7 @@ class Grenade {
     
    if(!exploding) {
     stroke(0);
+    strokeWeight(1);
     line(x, y-20, x, y-25);
     noStroke();
     fill(150);

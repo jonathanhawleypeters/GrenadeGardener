@@ -48,8 +48,10 @@ class Gardener {
        x+=moveSpeed;
      if(left)
        x-=moveSpeed;
-     if(x > width-40)
-       x = width-40;
+     if(x > width-100) {
+       x = width-100;
+       gm.scrollRight();
+     }
      if(y > height-40)
        y=height-40;
      if(x < 40)
