@@ -1,3 +1,5 @@
+//Butteflies by Kaly
+
 class Butterfly extends Enemy{
  float flapVel = TWO_PI/120;
  float flapLoc = 0;
