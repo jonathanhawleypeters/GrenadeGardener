@@ -50,6 +50,7 @@ class GameManager {
   
   void scrollRight() {
     int mvSpd = player.moveSpeed;
+    
     for(int i = 0; i < enemies.length; i++) {
       enemies[i].x -= mvSpd;
       
@@ -80,8 +81,13 @@ class GameManager {
     float xLoc = 0;
     randomSeed(level);
     for(int i = 0; i < enemies.length; i++) {
-      xLoc += random(0,500);
+      xLoc += random(0,400);
+      float generate = random(9);
+      if(generate < 8) {
       enemies[i] = new Tree(int(xLoc), int(random(height)), color(0,255,0));
+      } else {
+      enemies[i] = new Butterfly(int(xLoc), int(random(height)));
+      }
       
       if(i == enemies.length-1) {
         levelLength = int(xLoc);
