@@ -7,7 +7,7 @@ GameManager gm;
 void setup() {
   fullScreen();
   noStroke();
-  player = new Gardener(width/2 + 100,height/2);
+  player = new Gardener(width/3 + 100,height/2);
   gm = new GameManager();
   gm.generateLevel();
   gm.generateGrass();
@@ -18,9 +18,9 @@ void draw() {
    background(181,101,29);
    
    gm.drawGrass();
-   gm.manageEnemies();
    player.move();
    player.draw();
+   gm.manageEnemies();
    gm.manageGrenades();
    gm.ui();
    fill(0);

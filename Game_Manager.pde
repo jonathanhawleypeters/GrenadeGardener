@@ -108,10 +108,12 @@ class GameManager {
     announceLevel = 180;
   }
   
-  //writes valuable info on screen
+  //User Interface - writes valuable info on screen
   void ui() {
     if(announceLevel > 0) {
     noStroke();
+    fill(255,255,255,100);
+    rect(0,0,width,height);
     fill(0);
     rect(width/2 - 40, height/2 - 20, 80, 40);
     fill(255);

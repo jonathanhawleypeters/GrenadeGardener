@@ -44,6 +44,7 @@ void draw () {
   quad(x, y, x - d3,y - d1, x - d2 -d4, y - d1 - d3, x - d2, y - d4);
   fill(204,204,255);
   ellipse(x,y,20,110);
+  strokeWeight(1);
   stroke(0);
   line(x ,y -50,x + 10,y -80);
   line(x ,y -50,x - 10,y -80);
