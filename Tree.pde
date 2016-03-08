@@ -5,9 +5,10 @@ class Tree extends Enemy {
  float[] leafY;
  int offset = 0;
  
- Tree (int tempX, int tempY, color tempCol) {
+ Tree (int tempX, int tempY, color tempCol, int radius) {
    x = tempX;
    y = tempY;
+   r = radius;
    treeColor = tempCol;
    
    leafX = new float[16];
@@ -34,6 +35,8 @@ class Tree extends Enemy {
     noStroke();
     fill(treeColor, 90);
     ellipse(x+leafX[15-i], y+leafY[15-i], 40, 40);
+    
+    checkCollision();
     }
    }
  }

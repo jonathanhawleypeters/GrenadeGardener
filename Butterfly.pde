@@ -24,9 +24,10 @@ class Butterfly extends Enemy{
    }
   
   
-  Butterfly (int tempX,int tempY) {
+  Butterfly (int tempX,int tempY, int radius) {
      x = tempX;
      y = tempY;
+     r = radius;
      framesElapsed = 120;
   }
   
@@ -70,6 +71,9 @@ void draw () {
   if(flapLoc > TWO_PI){
     flapLoc =0;
   }
+  
+  checkCollision();
+  
   }
    
 }

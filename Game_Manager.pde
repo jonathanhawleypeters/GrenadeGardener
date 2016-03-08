@@ -39,6 +39,7 @@ class GameManager {
   void manageEnemies() {
     for(int i = 0; i < enemies.length; i++) {
       enemies[i].draw();
+      
     }
   }
   
@@ -84,9 +85,9 @@ class GameManager {
       xLoc += random(0,400);
       float generate = random(9);
       if(generate < 8) {
-      enemies[i] = new Tree(int(xLoc), int(random(height)), color(0,255,0));
+      enemies[i] = new Tree(int(xLoc), int(random(height)), color(0,255,0), 50);
       } else {
-      enemies[i] = new Butterfly(int(xLoc), int(random(height)));
+      enemies[i] = new Butterfly(int(xLoc), int(random(height)), 100);
       }
       
       if(i == enemies.length-1) {

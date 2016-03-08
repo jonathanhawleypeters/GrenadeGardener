@@ -1,6 +1,19 @@
 //Hi! -Jonathan
 //created 2.29.16
 
+/* Things Jonathan Needs to Impliment
+  Movement
+    movement collision
+    butterfly AI
+  Combat
+    Sword
+    Butterfly attack
+    weapon collision
+    reducing health
+    enemy death
+    player death
+*/
+
 Gardener player;
 GameManager gm;
 
@@ -21,6 +34,7 @@ void draw() {
    player.move();
    player.draw();
    gm.manageEnemies();
+
    gm.manageGrenades();
    gm.ui();
    fill(0);
