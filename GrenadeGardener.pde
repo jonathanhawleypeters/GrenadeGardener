@@ -18,6 +18,7 @@ Gardener player;
 GameManager gm;
 
 void setup() {
+  frameRate(30);
   fullScreen();
   noStroke();
   player = new Gardener(width/3 + 100,height/2);
@@ -28,8 +29,9 @@ void setup() {
 }
 
 void draw() {
-   background(181,101,29);
+   background(50,100,50);
    
+   gm.displayHit();
    gm.drawGrass();
    player.move();
    player.draw();

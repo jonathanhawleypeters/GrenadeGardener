@@ -2,8 +2,8 @@ class Gardener {
   
    int x, y;
    int r = 40;
-   int moveSpeed = 5;
-   int health = 10;
+   int moveSpeed = 10;
+   int health = 100;
    int grenades = 10;
    
    //may not be necessary

@@ -16,7 +16,7 @@ class Grass {
   int xsp1; //15 //slants the grass
   int xsp2; //30
 
-  int g = color (152, 255, 128); //grass color
+  int g = color (60,150,60); //grass color
   int blade = 2; //grass width
 
   //constructor

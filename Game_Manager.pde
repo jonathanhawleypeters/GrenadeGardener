@@ -1,5 +1,6 @@
 class GameManager {
-  boolean grenadeMode = false;
+ 
+  boolean displayHit = false;
   int score, enemiesKilled = 0;
   Grenade[] liveGrenades;
   int numGrenades = 0;
@@ -11,12 +12,22 @@ class GameManager {
   Grass[] grassTufts;
   
   //UI 
-  int announceLevel = 300;
+  //announceLevel sets alpha on a color and should not exceed 255
+  int announceLevel = 255;
   
   GameManager () {
     liveGrenades = new Grenade[20];
     enemies = new Enemy[50];
     grassTufts = new Grass[20];
+  }
+  
+  void displayHit() {
+    if(displayHit) {
+      fill(255,0,0,random(50,200));
+      rect(0,0,width,height);
+      translate(random(-20,20),random(-10,10));
+    }
+    displayHit = false;
   }
   
   void manageGrenades() {
@@ -111,9 +122,10 @@ class GameManager {
   
   //User Interface - writes valuable info on screen
   void ui() {
+    
     if(announceLevel > 0) {
     noStroke();
-    fill(255,255,255,100);
+    fill(255,255,255,announceLevel);
     rect(0,0,width,height);
     fill(0);
     rect(width/2 - 40, height/2 - 20, 80, 40);

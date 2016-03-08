@@ -16,6 +16,10 @@ class Enemy {
     
   }
   
+  void attack() {
+  
+  }
+  
   void checkCollision () {
     float distance = dist(x,y,player.x,player.y);
     int limit = player.r + r;
@@ -42,6 +46,8 @@ class Enemy {
      
      player.x += (limit-distance)/limit*run+nudgeX;
      player.y += (limit-distance)/limit*rise+nudgeY;
+     
+     attack();
     }
   }
 }

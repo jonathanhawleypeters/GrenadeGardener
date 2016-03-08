@@ -1,6 +1,8 @@
 //Butteflies by Kaly
 
 class Butterfly extends Enemy{
+ 
+  
  float flapVel = TWO_PI/120;
  float flapLoc = 0;
  
@@ -9,18 +11,45 @@ class Butterfly extends Enemy{
  float d3 = 20;
  float d4 = 30;
  float d5 = 10;
-  int targetX, targetY, framesElapsed;
+  int targetX, targetY;
+  float xSpeed, ySpeed; 
+  int framesElapsed = 120;
   int health;
+  int constSpeed = int(random(8,14));
   
    void move() {
+
+       
+     framesElapsed++;
+     float dist = dist(x,y,player.x,player.y);
      
-     if(framesElapsed >=120){
+     if(dist < width/2){
        targetX = player.x + int(random(-25,25));
        targetY = player.y + int(random(-25,25));
+       
+       float rise = targetY - y;
+       float run = targetX - x;
+    
+       xSpeed = run/dist*constSpeed;
+       ySpeed = rise/dist*constSpeed;
+       
+     } else if(framesElapsed >=120) {
+       targetX = int(random(width));
+       targetY = int(random(height));
+       
+       float rise = targetY - y;
+       float run = targetX - x;
+    
+       xSpeed = run/dist*constSpeed;
+       ySpeed = rise/dist*constSpeed;
        framesElapsed = 0;
      }
      
+     x += xSpeed;
+     y += ySpeed;
+     
      framesElapsed++;
+     
    }
   
   
@@ -29,6 +58,11 @@ class Butterfly extends Enemy{
      y = tempY;
      r = radius;
      framesElapsed = 120;
+  }
+  
+  void attack() {
+    player.health--;
+    gm.displayHit = true;
   }
   
 
@@ -75,6 +109,8 @@ void draw () {
   checkCollision();
   
   }
+  
+  move();
    
 }
 
