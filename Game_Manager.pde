@@ -1,7 +1,9 @@
 class GameManager {
  
-  boolean displayHit = false;
-  int score, enemiesKilled = 0;
+  boolean displayHit, paused, gameOver = false;
+  boolean menu = true;
+  
+  int environmentalDestruction, enemiesKilled = 0;
   Grenade[] liveGrenades;
   int numGrenades = 0;
   
@@ -13,7 +15,8 @@ class GameManager {
   
   //UI 
   //announceLevel sets alpha on a color and should not exceed 255
-  int announceLevel = 255;
+  int announceLevel = 90;
+  int heal = 0;
   
   GameManager () {
     liveGrenades = new Grenade[20];
@@ -47,9 +50,11 @@ class GameManager {
 
   }
   
-  void manageEnemies() {
+  void manageEnemies(boolean above) {
     for(int i = 0; i < enemies.length; i++) {
+      if(above == enemies[i].abovePlayer) {
       enemies[i].draw();
+      }
       
     }
   }
@@ -93,12 +98,26 @@ class GameManager {
     float xLoc = 0;
     randomSeed(level);
     for(int i = 0; i < enemies.length; i++) {
-      xLoc += random(0,400);
+      xLoc += random(50,400);
       float generate = random(9);
-      if(generate < 8) {
-      enemies[i] = new Tree(int(xLoc), int(random(height)), color(0,255,0), 50);
-      } else {
+      
+      if(generate < 3) {
+      enemies[i] = new Flower(int(xLoc), int(random(height)), 15);
+      
+      } else 
+      
+      if(generate >= 3 && generate < 6) {
+        
+      //regular tree
+      enemies[i] = new Tree(int(xLoc), int(random(height)), color(0,255,0), 50, false);
+      } else if (generate >= 6 && generate < 8) {
+        
+      //Poison Tree
+      enemies[i] = new Tree(int(xLoc), int(random(height)), color(0,255,0), 50, true);
+      } else if (xLoc > 1.5 * width) {
       enemies[i] = new Butterfly(int(xLoc), int(random(height)), 100);
+      } else {
+        enemies[i] = new Flower(int(xLoc), int(random(height)), 15);
       }
       
       if(i == enemies.length-1) {
@@ -117,15 +136,25 @@ class GameManager {
   void resetLevel() {
     player.x = width/2;
     player.y = height/2;
-    announceLevel = 180;
+    announceLevel = 90;
   }
   
   //User Interface - writes valuable info on screen
   void ui() {
     
+    //Anh
+    image(userInfo, userPosX, userPosY);
+    noStroke();
+    health();
+    
+    fill(0,255,0);
+    textFont(pixel, 24);
+    text(enemiesKilled,width*2/3,95);
+
+    
     if(announceLevel > 0) {
     noStroke();
-    fill(255,255,255,announceLevel);
+    fill(0,0,0,2*announceLevel);
     rect(0,0,width,height);
     fill(0);
     rect(width/2 - 40, height/2 - 20, 80, 40);
@@ -133,6 +162,38 @@ class GameManager {
     text("Level " + level, width/2 - 20, height/2);
     announceLevel--;
     }
+    
+    if(heal>0) {
+      heal--;
+      fill(0,255,0);
+      textFont(pixel, 32);
+      text("+10",player.x,player.y+heal);
+    }
+    
+    if(gameOver) {
+     noLoop();
+     image(deadScreen,(width-deadScreen.width)/2,(height-deadScreen.height)/2);
+    }
+    
+    if(menu){
+      noLoop();
+     image(menuScreen,(width-menuScreen.width)/2,(height-menuScreen.height)/2);
+    }
+    
+    
   
+  }
+  
+  void cleanUpDead() {
+    
+    enemiesKilled++;
+    for(int i = 0; i < enemies.length; i++) {
+      if(enemies[i].x > -200 && enemies[i].x < width + 200) {
+          if(enemies[i].health <=0) {
+            enemies[i] = new DeadEnemy(enemies[i].x,enemies[i].y,10,color(132, 67, 9, 75));
+          }
+      }
+      
+    }
   }
 }

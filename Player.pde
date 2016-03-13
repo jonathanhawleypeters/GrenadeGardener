@@ -5,6 +5,8 @@ class Gardener {
    int moveSpeed = 10;
    int health = 100;
    int grenades = 10;
+   int swordDamage = 4;
+   int swordRadius = 150;
    
    //may not be necessary
    boolean alive;
@@ -27,6 +29,8 @@ class Gardener {
    }
    
    void draw() {
+     
+     if(health > 0){
      noStroke();
      pushMatrix();
      translate(x,y);
@@ -37,6 +41,9 @@ class Gardener {
      ellipse(0,0,35,35);
      ellipse(0,-20,5,5);
      popMatrix();
+     } else {
+     gm.gameOver = true;
+     }
    }
    
    //changes X and Y by moveSpeed amount using WASD input
@@ -80,7 +87,26 @@ class Gardener {
    }
    
    void swordAttack () {
-   
+     
+     //add animation with counter here
+     
+     for(int i = 0; i < gm.enemies.length; i++) {
+       int enX = gm.enemies[i].x;
+       int enY = gm.enemies[i].y;
+       
+       fill(100,100,100,100);
+       
+       ellipse(x,y,200,200);
+       
+       if(enX > x - swordRadius && enX < x + swordRadius) {
+       if(attackCollide(enX,enY,swordRadius)) {
+         gm.enemies[i].health -= swordDamage;
+       
+         }
+       }
+     }
+     
+     
    }
    
    void grenadeAttack() {
@@ -90,6 +116,16 @@ class Gardener {
       gm.liveGrenades[gm.numGrenades] = new Grenade(x,y,mouseX,mouseY);
       gm.numGrenades ++;
    }
+   
+  boolean attackCollide (int enemyX, int enemyY, int attackRadius) {
+    float distance = dist(x,y,enemyX,enemyY);
+    int radius = attackRadius;
+    if(distance < radius) {
+      return true;
+    } else {
+      return false;
+    }
+  }
    
    
 }

@@ -11,11 +11,20 @@ class Butterfly extends Enemy{
  float d3 = 20;
  float d4 = 30;
  float d5 = 10;
+
   int targetX, targetY;
   float xSpeed, ySpeed; 
   int framesElapsed = 120;
-  int health;
+
   int constSpeed = int(random(8,14));
+  
+    Butterfly (int tempX,int tempY, int radius) {
+     x = tempX;
+     y = tempY;
+     r = radius;
+     framesElapsed = 120;
+     abovePlayer = true;
+  }
   
    void move() {
 
@@ -52,14 +61,6 @@ class Butterfly extends Enemy{
      
    }
   
-  
-  Butterfly (int tempX,int tempY, int radius) {
-     x = tempX;
-     y = tempY;
-     r = radius;
-     framesElapsed = 120;
-  }
-  
   void attack() {
     player.health--;
     gm.displayHit = true;
@@ -68,6 +69,8 @@ class Butterfly extends Enemy{
 
 
 void draw () {
+  
+  
   
   if(x > -200 && x < width + 200) {
   
@@ -107,6 +110,11 @@ void draw () {
   }
   
   checkCollision();
+  
+  if(health <= 0) {
+     gm.environmentalDestruction += 128;
+     gm.cleanUpDead();
+  }
   
   }
   

@@ -26,8 +26,15 @@ void keyPressed() {
     case('a'): case('A'): player.left = true; player.targetFacing = 3*HALF_PI; return;
     case('s'): case('S'): player.down = true; player.targetFacing = PI; return;
     case('d'): case('D'): player.right = true; player.targetFacing = HALF_PI; return;
-    //case('g'): case('G'): player.grenadeAttack(); return;
     
+    case('e'): case('E'): player.swordAttack(); return;
+    case('Q'): exit(); return;
+    case('p'): case('P'): gm.paused=!gm.paused; if(gm.paused) {noLoop(); fill(0); rect(width/7*2,height/5,width/7,height/5*3); rect(width/7*4,height/5,width/7,height/5*3); } else if (!gm.paused) {loop();} return;
+    case('y'): case('Y'): if(gm.gameOver) {setupGame(); gm.menu = false; loop(); } return;
+    case('n'): case('N'): if(gm.gameOver) {exit();} return;
+    case('m'): case('M'): gm.menu = !gm.menu; if(!gm.menu) {loop();} return;
+    case('r'): case('R'): gm.level = 1; setupGame(); gm.menu = false; return;
+
   }
 }
 

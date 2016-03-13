@@ -1,7 +1,7 @@
 class Grenade {
   int size;
   float x, y, tX, tY, xSpeed, ySpeed, dist;
-  int constSpeed = 5;
+  int constSpeed = 20;
   int boomCount = 0; //counts frames after grenade explosion
   boolean exploding = false;
   
@@ -24,10 +24,6 @@ class Grenade {
     ySpeed = rise/dist*constSpeed;
   }
   
-  void explode () {
-  
-  } 
-  
   void draw(int arrayLoc) {
    
     int location = arrayLoc;
@@ -42,6 +38,9 @@ class Grenade {
     ellipse(x,y,25,25);
    } else if (exploding) {
       boomCount ++;
+      if(boomCount == 15) {
+        explode();
+      }
       noStroke();
       fill(255,200,75);
       ellipse(x,y,boomCount*30,boomCount*30);
@@ -62,5 +61,35 @@ class Grenade {
     y+=ySpeed;
     dist -= constSpeed;
 }
+
+  boolean attackCollide (int enemyX, int enemyY, int attackRadius) {
+    float distance = dist(x,y,enemyX,enemyY);
+    int radius = attackRadius;
+    if(distance < radius) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  
+   void explode () {
+   
+   //add animation with counter here
+   
+   for(int i = 0; i < gm.enemies.length; i++) {
+     int enX = gm.enemies[i].x;
+     int enY = gm.enemies[i].y;
+
+     
+     if(enX > x - 225 && enX < x + 225) {
+     if(attackCollide(enX,enY,225)) {
+       gm.enemies[i].health -= 5;
+     
+       }
+     }
+   }
+   
+   
+ }
 
 }

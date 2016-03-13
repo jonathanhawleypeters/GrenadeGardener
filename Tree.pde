@@ -4,12 +4,15 @@ class Tree extends Enemy {
  float[] leafX;
  float[] leafY;
  int offset = 0;
+ boolean poisonous; 
  
- Tree (int tempX, int tempY, color tempCol, int radius) {
+ Tree (int tempX, int tempY, color tempCol, int radius, boolean poison) {
    x = tempX;
    y = tempY;
    r = radius;
    treeColor = tempCol;
+   poisonous = poison; 
+   abovePlayer = true; 
    
    leafX = new float[16];
    leafY = new float[16];
@@ -25,6 +28,8 @@ class Tree extends Enemy {
   
  void draw () {
    
+   if(health > 0) {
+   
    fill(treeColor);
    for(int i = 0; i < leafX.length; i++) {
     
@@ -35,11 +40,31 @@ class Tree extends Enemy {
     noStroke();
     fill(treeColor, 90);
     ellipse(x+leafX[15-i], y+leafY[15-i], 40, 40);
+    if(poisonous) {
+      fill(255,0,255);
+      ellipse(x+leafX[15-i], y+leafY[15-i]-i/3, 3, 3);
+    }
     
     checkCollision();
     }
    }
+ } else {
+   gm.cleanUpDead();
+   if(poisonous){
+     gm.environmentalDestruction += 16;
+   } else {
+     gm.environmentalDestruction += 32;
+   }
  }
+ 
+ }
+ 
+   void attack() {
+     if(poisonous) {
+    player.health--;
+    gm.displayHit = true;
+    }
+  }
  
 }
 

@@ -6,6 +6,7 @@ class Enemy {
   //x and y location, radius
   int x, y, r; 
   int health = 10;
+  boolean abovePlayer = false;
   
   //Enemy(int tempX,int tempY, int tempHealth) {
   //   x = tempX;
